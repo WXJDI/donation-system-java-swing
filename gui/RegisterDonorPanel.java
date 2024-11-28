@@ -4,9 +4,10 @@ import models.Donor;
 import services.DonorService;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class RegisterDonorPanel extends JPanel {
-    public RegisterDonorPanel() {
+    public RegisterDonorPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel usernameLabel = new JLabel("username: ");
@@ -28,7 +29,6 @@ public class RegisterDonorPanel extends JPanel {
         JPasswordField confirmPasswordField = new JPasswordField();
 
         JButton registerDonorButton = new JButton("register donor");
-
         registerDonorButton.addActionListener(actionEvent -> {
             DonorService donorService = new DonorService();
             String username = usernameField.getText();
@@ -50,6 +50,11 @@ public class RegisterDonorPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Donor registered!");
         });
 
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(actionEvent -> {
+                    cardLayout.show(mainPanel, "LOGIN");
+                });
+
         add(usernameLabel);
         add(usernameField);
         add(emailLabel);
@@ -63,5 +68,6 @@ public class RegisterDonorPanel extends JPanel {
         add(confirmPasswordLabel);
         add(confirmPasswordField);
         add(registerDonorButton);
+        add(loginButton);
     }
 }
