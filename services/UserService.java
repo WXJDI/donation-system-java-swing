@@ -8,10 +8,7 @@ public class UserService {
 
     public User registerUser(String username, String password, String email) {
         User user = new User(0, username, password, email);
-        boolean userAdded = userDAO.addUser(user);
-        if (userAdded)
-            return user;
-        return null;
+        return userDAO.addUser(user);
     }
 
     public User loginUser(String username, String password) {
