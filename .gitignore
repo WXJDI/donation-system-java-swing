@@ -2,3 +2,4 @@
 bin/
 lib/
 out/
+.env
