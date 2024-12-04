@@ -20,12 +20,17 @@ public class MainFrame extends JFrame {
         // Create panels to switch between
         JPanel loginPanel = new LoginPanel(mainPanel, cardLayout);
         JPanel registerDonorPanel = new RegisterDonorPanel(mainPanel, cardLayout);
+        JPanel registerAssociationPanel = new RegisterAssociationPanel(mainPanel, cardLayout);
 
+        // Add panels to mainPanel
         mainPanel.add(loginPanel, "LOGIN");
         mainPanel.add(registerDonorPanel, "REGISTER_DONOR");
+        mainPanel.add(registerAssociationPanel, "REGISTER_ASSOCIATION");
 
+        // Add the main panel to the frame
         add(mainPanel);
 
+        // Show the initial panel
         cardLayout.show(mainPanel, "LOGIN");
     }
 }
