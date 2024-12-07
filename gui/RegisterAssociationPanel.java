@@ -1,34 +1,137 @@
 package gui;
 
+import app.GlobalConstants;
 import models.Association;
 import services.AssociationService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegisterAssociationPanel extends JPanel {
     public RegisterAssociationPanel(JPanel mainPanel, CardLayout cardLayout) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        setBackground(GlobalConstants.PRIMARY_COLOR);
 
-        JLabel usernameLabel = new JLabel("username: ");
-        JTextField usernameField = new JTextField();
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new GridBagLayout());
+        formPanel.setBackground(GlobalConstants.PRIMARY_COLOR);
 
-        JLabel emailLabel = new JLabel("email: ");
-        JTextField emailField = new JTextField();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel nameLabel = new JLabel("name: ");
-        JTextField nameField = new JTextField();
+        JLabel usernameLabel = new JLabel("Username: ");
+        usernameLabel.setFont(GlobalConstants.LABEL_FONT);
+        usernameLabel.setForeground(GlobalConstants.BASIC_COLOR);
 
-        JLabel locationLabel = new JLabel("location: ");
-        JTextField locationField = new JTextField();
+        JTextField usernameField = new JTextField(20);
+        usernameField.setFont(GlobalConstants.INPUT_FONT);
+        usernameField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        usernameField.setBackground(Color.WHITE);
+        usernameField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel passwordLabel = new JLabel("password: ");
-        JPasswordField passwordField = new JPasswordField();
+        JLabel emailLabel = new JLabel("Email: ");
+        emailLabel.setFont(GlobalConstants.LABEL_FONT);
+        emailLabel.setForeground(GlobalConstants.BASIC_COLOR);
 
-        JLabel confirmPasswordLabel = new JLabel("confirm password: ");
-        JPasswordField confirmPasswordField = new JPasswordField();
+        JTextField emailField = new JTextField(20);
+        emailField.setFont(GlobalConstants.INPUT_FONT);
+        emailField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        emailField.setBackground(Color.WHITE);
+        emailField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JButton registerAssociationButton = new JButton("register association");
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setFont(GlobalConstants.LABEL_FONT);
+        nameLabel.setForeground(GlobalConstants.BASIC_COLOR);
+
+        JTextField nameField = new JTextField(20);
+        nameField.setFont(GlobalConstants.INPUT_FONT);
+        nameField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        nameField.setBackground(Color.WHITE);
+        nameField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
+
+        JLabel locationLabel = new JLabel("Location: ");
+        locationLabel.setFont(GlobalConstants.LABEL_FONT);
+        locationLabel.setForeground(GlobalConstants.BASIC_COLOR);
+
+        JTextField locationField = new JTextField(20);
+        locationField.setFont(GlobalConstants.INPUT_FONT);
+        locationField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        locationField.setBackground(Color.WHITE);
+        locationField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
+
+        JLabel passwordLabel = new JLabel("Password: ");
+        passwordLabel.setFont(GlobalConstants.LABEL_FONT);
+        passwordLabel.setForeground(GlobalConstants.BASIC_COLOR);
+
+        JPasswordField passwordField = new JPasswordField(20);
+        passwordField.setFont(GlobalConstants.INPUT_FONT);
+        passwordField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        passwordField.setBackground(Color.WHITE);
+        passwordField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
+
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password: ");
+        confirmPasswordLabel.setFont(GlobalConstants.LABEL_FONT);
+        confirmPasswordLabel.setForeground(GlobalConstants.BASIC_COLOR);
+
+        JPasswordField confirmPasswordField = new JPasswordField(20);
+        confirmPasswordField.setFont(GlobalConstants.INPUT_FONT);
+        confirmPasswordField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);
+        confirmPasswordField.setBackground(Color.WHITE);
+        confirmPasswordField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(usernameLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(emailLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(emailField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(nameLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(nameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(locationLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(locationField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(passwordLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        formPanel.add(confirmPasswordLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(confirmPasswordField, gbc);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.insets = new Insets(10, 10, 10, 10);
+        gbcButton.anchor = GridBagConstraints.CENTER;
+
+        JButton registerAssociationButton = new JButton("Register Association");
+        registerAssociationButton.setFont(GlobalConstants.LABEL_FONT);
+        registerAssociationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        registerAssociationButton.setForeground(Color.WHITE);
+        registerAssociationButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
+        registerAssociationButton.setFocusPainted(false);
+        registerAssociationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         registerAssociationButton.addActionListener(actionEvent -> {
             AssociationService associationService = new AssociationService();
             String username = usernameField.getText();
@@ -39,7 +142,7 @@ public class RegisterAssociationPanel extends JPanel {
             String confirmPassword = new String(confirmPasswordField.getPassword());
 
             if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "passwords do not match!");
+                JOptionPane.showMessageDialog(this, "Passwords do not match!");
                 return;
             }
             Association association = associationService.registerAssociationUser(username, password, email, name, location);
@@ -49,25 +152,32 @@ public class RegisterAssociationPanel extends JPanel {
             }
             JOptionPane.showMessageDialog(this, "Association registered!");
         });
+        gbcButton.gridwidth = GridBagConstraints.REMAINDER;
+        buttonPanel.add(registerAssociationButton, gbcButton);
 
-        JButton loginButton = new JButton("Login");
-        loginButton.addActionListener(actionEvent -> {
-            cardLayout.show(mainPanel, "LOGIN");
+        JLabel infoLabel = new JLabel("Already have an account?");
+        infoLabel.setFont(GlobalConstants.LABEL_FONT);
+        infoLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
+        gbcButton.gridwidth = GridBagConstraints.REMAINDER;
+        buttonPanel.add(infoLabel, gbcButton);
+
+        JLabel loginLink = new JLabel("<html><u><b>Login</b></u></html>");
+        loginLink.setFont(GlobalConstants.LABEL_FONT);
+        loginLink.setForeground(GlobalConstants.LINK_COLOR);
+        loginLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginLink.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "LOGIN");
+            }
         });
+        gbcButton.gridwidth = GridBagConstraints.REMAINDER;
+        buttonPanel.add(loginLink, gbcButton);
 
-        add(usernameLabel);
-        add(usernameField);
-        add(emailLabel);
-        add(emailField);
-        add(nameLabel);
-        add(nameField);
-        add(locationLabel);
-        add(locationField);
-        add(passwordLabel);
-        add(passwordField);
-        add(confirmPasswordLabel);
-        add(confirmPasswordField);
-        add(registerAssociationButton);
-        add(loginButton);
+        add(formPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Padding for the form elements
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 }
