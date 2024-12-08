@@ -2,6 +2,7 @@ package gui;
 
 import app.GlobalConstants;
 import services.UserService;
+import utils.ResourceUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,10 @@ public class LoginPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.CENTER; // Center components
+
+        JLabel loginImage = ResourceUtils.loadImage(GlobalConstants.LOGIN_IMAGE_PATH);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(loginImage, gbc);
 
         JLabel titleLabel = new JLabel("Welcome to Donation System");
         titleLabel.setFont(GlobalConstants.TITLE_FONT);
