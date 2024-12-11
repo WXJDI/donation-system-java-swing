@@ -6,7 +6,7 @@ import utils.DBConnection;
 import java.sql.*;
 
 public class UserDAO {
-    public User addUser(User user) {
+    public User addUser(User user) throws SQLIntegrityConstraintViolationException {
         String sql = "INSERT INTO User (username, password, email) VALUES (?, ?, ?)";
         Connection conn = DBConnection.getConnection();
         try {
@@ -24,7 +24,9 @@ public class UserDAO {
                     return user;
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw e;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

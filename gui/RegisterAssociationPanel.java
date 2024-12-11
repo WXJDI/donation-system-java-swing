@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class RegisterAssociationPanel extends JPanel {
     public RegisterAssociationPanel(JPanel mainPanel, CardLayout cardLayout) {
@@ -133,7 +135,7 @@ public class RegisterAssociationPanel extends JPanel {
         registerAssociationButton.setFocusPainted(false);
         registerAssociationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         registerAssociationButton.addActionListener(actionEvent -> {
-            AssociationService associationService = new AssociationService();
+            StringBuilder errorMessages = new StringBuilder();
             String username = usernameField.getText();
             String name = nameField.getText();
             String email = emailField.getText();
@@ -141,16 +143,69 @@ public class RegisterAssociationPanel extends JPanel {
             String password = new String(passwordField.getPassword());
             String confirmPassword = new String(confirmPasswordField.getPassword());
 
+            if (username.length() < 6) {
+                errorMessages.append("- Username must be at least 6 characters long.\n");
+            }
+
+            if (!email.matches("^[^@\s]+@[^@\s]+\\.[^@\s]+$")) {
+                errorMessages.append("- Email must be a valid format.\n");
+            }
+
+            if (name.trim().isEmpty()) {
+                errorMessages.append("- Name cannot be empty.\n");
+            }
+
+            if (location.trim().isEmpty()) {
+                errorMessages.append("- Location cannot be empty.\n");
+            }
+
+            if (password.length() < 8) {
+                errorMessages.append("- Password must be at least 8 characters long.\n");
+            }
+
             if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "Passwords do not match!");
-                return;
+                errorMessages.append("- Passwords do not match.\n");
             }
-            Association association = associationService.registerAssociationUser(username, password, email, name, location);
-            if (association == null) {
-                JOptionPane.showMessageDialog(this, "An error has occurred. Try again!");
-                return;
+
+            if (errorMessages.length() > 0) {
+                JOptionPane.showMessageDialog(RegisterAssociationPanel.this, errorMessages.toString(), "Validation Errors", JOptionPane.ERROR_MESSAGE);
+            } else {
+                try {
+                    AssociationService associationService = new AssociationService();
+                    Association association = associationService.registerAssociationUser(username, password, email, name, location);
+                    if (association == null) {
+                        JOptionPane.showMessageDialog(this, "An error has occurred. Try again!");
+                        return;
+                    }
+                    JOptionPane.showMessageDialog(this, "Association registered!");
+                } catch (SQLIntegrityConstraintViolationException exp) {
+                    String message = exp.getMessage();
+                    if (message.contains("username")) {
+                        JOptionPane.showMessageDialog(
+                                RegisterAssociationPanel.this,
+                                "Username is already taken. Please choose another.",
+                                "Duplicate Username Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    } else if (message.contains("email")) {
+                        JOptionPane.showMessageDialog(
+                                RegisterAssociationPanel.this,
+                                "Email is already in use. Please use a different email address.",
+                                "Duplicate Email Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                RegisterAssociationPanel.this,
+                                "A database constraint was violated: " + message,
+                                "Database Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                } catch (Exception exp) {
+                    JOptionPane.showMessageDialog(RegisterAssociationPanel.this, "An unexpected error occurred: " + exp.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            JOptionPane.showMessageDialog(this, "Association registered!");
         });
         gbcButton.gridwidth = GridBagConstraints.REMAINDER;
         buttonPanel.add(registerAssociationButton, gbcButton);

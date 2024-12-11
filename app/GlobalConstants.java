@@ -24,4 +24,7 @@ public class GlobalConstants {
 
     // border config
     public static final Border TEXT_FIELD_BORDER = BorderFactory.createLineBorder(new Color(0, 51, 102), 1);
+
+    // Resources config
+    public static final String LOGIN_IMAGE_PATH = "../resources/images/login_user_avatar_person_users_icon.png";
 }

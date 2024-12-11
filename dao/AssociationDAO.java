@@ -6,7 +6,7 @@ import utils.DBConnection;
 import java.sql.*;
 public class AssociationDAO {
     public static boolean addAssociation(Association Association) {
-        String sqlQuery = "INSERT INTO association (name, location, user_id) VALUES (?, ?, ?)";
+        String sqlQuery = "INSERT INTO Association (name, location, user_id) VALUES (?, ?, ?)";
         Connection conn = DBConnection.getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement(sqlQuery);
