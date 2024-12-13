@@ -64,4 +64,16 @@ public class Donation {
     public void setDonor(Donor donor) {
         this.donor = donor;
     }
+
+    @Override
+    public String toString() {
+        return "Donation{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", isAvailable=" + isAvailable +
+                ", donor=" + donor +
+                '}';
+    }
 }

@@ -1,6 +1,8 @@
 package gui;
 
 import app.GlobalConstants;
+import models.Donor;
+import services.DonorService;
 import services.UserService;
 import utils.ResourceUtils;
 
@@ -9,6 +11,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class LoginPanel extends JPanel {
+    JPanel donationPanel;
+
     public LoginPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new GridBagLayout());
         setBackground(GlobalConstants.PRIMARY_COLOR);
@@ -64,10 +68,21 @@ public class LoginPanel extends JPanel {
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginButton.addActionListener(actionEvent -> {
             UserService userService = new UserService();
+            DonorService donorService = new DonorService();
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
             if (userService.loginUser(username, password) != null) {
                 JOptionPane.showMessageDialog(this, "Login Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    Donor donor = donorService.getDonorByUsername(username);
+                    donationPanel = new DonationPanel(donor);
+                    mainPanel.add(donationPanel, "DONATION_PANEL");
+                    cardLayout.show(mainPanel, "DONATION_PANEL");
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Credentials!", "Error", JOptionPane.ERROR_MESSAGE);
             }

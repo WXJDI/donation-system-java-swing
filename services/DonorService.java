@@ -26,4 +26,15 @@ public class DonorService {
         }
         return null;
     }
+
+    public Donor getDonorByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+        Donor donor = donorDAO.getDonorByUsername(username);
+        if (donor == null) {
+            throw new IllegalStateException("No donor found for the given username: " + username);
+        }
+        return donor;
+    }
 }
