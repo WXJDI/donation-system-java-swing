@@ -21,11 +21,15 @@ public class GlobalConstants {
     public static final Color OK_BUTTON_FG_COLOR = Color.WHITE;
     public static final Color CANCEL_BUTTON_BG_COLOR = new Color(204, 0, 0);
     public static final Color CANCEL_BUTTON_FG_COLOR = Color.WHITE;
+    public static final Color TABLE_GRID_COLOR = Color.LIGHT_GRAY;
+    public static final Color TABLE_SELECTION_BG = new Color(173, 216, 230);
+    public static final Color TABLE_SELECTION_FG = Color.BLACK;
 
     // font config
     public static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 24);
     public static final Font LABEL_FONT = new Font("Arial", Font.PLAIN, 16);
     public static final Font INPUT_FONT = LABEL_FONT;
+    public static final Font TABLE_COLUMN_NAME_FONT = new Font("Arial", Font.BOLD, 18);
 
     // border config
     public static final Border TEXT_FIELD_BORDER = BorderFactory.createLineBorder(new Color(0, 51, 102), 1);
