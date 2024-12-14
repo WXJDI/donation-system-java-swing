@@ -9,6 +9,7 @@ public class GlobalConstants {
     public static final Dimension FRAME_SIZE = new Dimension(800, 600);
     public static final Dimension TEXT_FIELD_SIZE = new Dimension((int) (FRAME_SIZE.width * 0.8), 40);
     public static final Dimension BUTTON_SIZE = new Dimension(250, 40);
+    public static final Dimension FORM_SIZE = new Dimension(400, 300);
 
     // Color config
     public static final Color PRIMARY_COLOR = new Color(235, 235, 235);
@@ -16,6 +17,10 @@ public class GlobalConstants {
     public static final Color BASIC_COLOR = new Color(51, 51, 51);
     public static final Color BUTTON_BG_COLOR = new Color(0, 51, 102);
     public static final Color LINK_COLOR = new Color(51, 153, 255);
+    public static final Color OK_BUTTON_BG_COLOR = new Color(0, 153, 51);
+    public static final Color OK_BUTTON_FG_COLOR = Color.WHITE;
+    public static final Color CANCEL_BUTTON_BG_COLOR = new Color(204, 0, 0);
+    public static final Color CANCEL_BUTTON_FG_COLOR = Color.WHITE;
 
     // font config
     public static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 24);

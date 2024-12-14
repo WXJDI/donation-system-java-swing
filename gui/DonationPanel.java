@@ -1,5 +1,6 @@
 package gui;
 
+import gui.components.DonationDialog;
 import gui.components.DonationForm;
 import models.Donation;
 import models.Donor;
@@ -100,34 +101,50 @@ public class DonationPanel extends JPanel {
 
     public void openAddDonationPopup() {
         DonationForm donationForm = new DonationForm(currentDonor, null);
-        int result = JOptionPane.showConfirmDialog(this, donationForm, "Add donation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
-            Donation donation = donationForm.getDonation(false);
-            if (donation != null) {
-                JOptionPane.showMessageDialog(this, "Donation added successfully.");
-                loadDonations();
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to add donation.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+
+        DonationDialog dialog = new DonationDialog(
+                this,
+                "Add Donation",
+                donationForm,
+                "Add Donation",
+                () -> {
+                    Donation donation = donationForm.getDonation(false);
+                    if (donation != null) {
+                        JOptionPane.showMessageDialog(this, "Donation added successfully.");
+                        loadDonations();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to add donation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+        );
+        dialog.setVisible(true);
     }
 
     public void openEditDonationPopup(int donationId) {
         Donation existingDonation = donationService.getDonationById(currentDonor, donationId);
         if (existingDonation != null) {
             DonationForm donationForm = new DonationForm(currentDonor, existingDonation);
-            int result = JOptionPane.showConfirmDialog(this, donationForm, "Edit Donation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            if (result == JOptionPane.OK_OPTION) {
-                Donation updatedDonation = donationForm.getDonation(true);
-                if (updatedDonation != null) {
-                    JOptionPane.showMessageDialog(this, "Donation updated successfully.");
-                    loadDonations();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Failed to update donation.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+
+            DonationDialog dialog = new DonationDialog(
+                    this, // Pass the JPanel as the parent
+                    "Edit Donation",
+                    donationForm,
+                    "Save Changes",
+                    () -> {
+                        Donation updatedDonation = donationForm.getDonation(true);
+                        if (updatedDonation != null) {
+                            JOptionPane.showMessageDialog(this, "Donation updated successfully.");
+                            loadDonations();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to update donation.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+            );
+
+            dialog.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Donation not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 }
