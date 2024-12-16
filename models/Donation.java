@@ -16,6 +16,16 @@ public class Donation {
         this.isAvailable = quantity > 0;
         this.donor = donor;
     }
+    public Donation(int id, String type, String description, int quantity, boolean isAvailable, int donorId) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.quantity = quantity;
+        this.isAvailable = isAvailable;
+        this.donor = new Donor(); // Create a Donor object
+        this.donor.setId(donorId); // Only set the donor ID
+    }
+
 
     public int getId() {
         return id;

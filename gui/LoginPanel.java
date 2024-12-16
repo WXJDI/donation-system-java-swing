@@ -2,18 +2,24 @@ package gui;
 
 import app.GlobalConstants;
 import models.Donor;
+import models.Association;
 import services.DonorService;
 import services.UserService;
 import utils.ResourceUtils;
+import dao.AssociationDAO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class LoginPanel extends JPanel {
-    JPanel donationPanel;
+    JPanel mainPanel;
+    CardLayout cardLayout;
 
     public LoginPanel(JPanel mainPanel, CardLayout cardLayout) {
+        this.mainPanel = mainPanel;
+        this.cardLayout = cardLayout;
+
         setLayout(new GridBagLayout());
         setBackground(GlobalConstants.PRIMARY_COLOR);
 
@@ -67,24 +73,41 @@ public class LoginPanel extends JPanel {
         loginButton.setFocusPainted(false);
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginButton.addActionListener(actionEvent -> {
-            UserService userService = new UserService();
-            DonorService donorService = new DonorService();
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
-            if (userService.loginUser(username, password) != null) {
-                JOptionPane.showMessageDialog(this, "Login Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            UserService userService = new UserService();
+            String userType = String.valueOf(userService.loginUser(username, password));
+
+            if (userType.equals("donor")) {
+                DonorService donorService = new DonorService();
                 try {
                     Donor donor = donorService.getDonorByUsername(username);
-                    donationPanel = new DonationPanel(donor);
-                    mainPanel.add(donationPanel, "DONATION_PANEL");
-                    cardLayout.show(mainPanel, "DONATION_PANEL");
+                    if (donor != null) {
+                        gui.DonationPanel donationPanel = new gui.DonationPanel(donor);
+                        mainPanel.add(donationPanel, "DONATION_PANEL");
+                        cardLayout.show(mainPanel, "DONATION_PANEL");
+                    }
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
                 }
+
+            } else if (userType.equals("association")) {
+                System.out.println("wsol lehnaaaaa ");
+                AssociationDAO associationDAO = new AssociationDAO();
+                Association association = associationDAO.getAssociationByUsername(username);
+
+                if (association != null) {
+                    System.out.println("wsol lehna 2 ");
+                    gui.AssociationPanel associationPanel = new gui.AssociationPanel(association);
+                    mainPanel.add(associationPanel, "Association_PANEL");
+                    cardLayout.show(mainPanel, "Association_PANEL");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid credentials!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                }
+
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid Credentials!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         gbc.gridwidth = GridBagConstraints.REMAINDER;

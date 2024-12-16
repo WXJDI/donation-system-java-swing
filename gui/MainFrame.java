@@ -4,6 +4,7 @@ import app.GlobalConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import models.Association;
 
 public class MainFrame extends JFrame {
 
@@ -31,6 +32,12 @@ public class MainFrame extends JFrame {
 
         add(mainPanel);
 
-        cardLayout.show(mainPanel, "LOGIN"); // Initial panel is loginPanel
+        cardLayout.show(mainPanel, "LOGIN");
+
+
+
+
     }
+
+
 }

@@ -13,6 +13,7 @@ public class Donor  {
         this.address = address;
         this.user = user;
     }
+    public Donor (){} ;
 
     public int getId() {
         return id;
