@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 
 public class DonorDAO {
-    private UserDAO userDAO;
+    private dao.UserDAO userDAO;
 
     public boolean addDonor(Donor donor) {
         String sqlQuery = "INSERT INTO Donor (name, address, user_id) VALUES (?, ?, ?)";
@@ -29,7 +29,7 @@ public class DonorDAO {
     }
 
    public Donor getDonorByDonorId(int DonorId) {
-        userDAO = new UserDAO();
+        dao.UserDAO userDAO = new dao.UserDAO();
         String sqlQuery = "SELECT * FROM Donor WHERE id = ?";
         Connection conn = DBConnection.getConnection();
         try {
@@ -47,7 +47,7 @@ public class DonorDAO {
         return null;
     }
     public Donor getDonorByUsername(String username) {
-        userDAO = new UserDAO();
+        userDAO = new dao.UserDAO();
         User user = userDAO.getUserByUsername(username);
         Donor donor = null;
         String sqlQuery = "SELECT * FROM Donor WHERE user_id = ?";

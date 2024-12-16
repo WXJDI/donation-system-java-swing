@@ -1,10 +1,12 @@
 package services;
-
+import dao.DonationDAO ;
 import dao.AssociationDAO;
 import models.Association;
 import models.User;
+import models.Donation;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 public class AssociationService {
     private services.UserService userService = new services.UserService();
@@ -25,4 +27,16 @@ public class AssociationService {
         }
         return null;
     }
+    public ArrayList<Donation> getAvailableDonations() {
+        DonationDAO donationDAO = new dao.DonationDAO();
+        return donationDAO.getAvailableDonations();
+    }
+    public boolean collectDonation(int associationId, int donationId, int quantityToCollect) {
+        DonationDAO donationDAO = new DonationDAO();
+        return donationDAO.collectDonation(associationId, donationId, quantityToCollect);
+    }
+
+
+
+
 }
