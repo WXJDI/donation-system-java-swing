@@ -93,12 +93,10 @@ public class LoginPanel extends JPanel {
                 }
 
             } else if (userType.equals("association")) {
-                System.out.println("wsol lehnaaaaa ");
                 AssociationDAO associationDAO = new AssociationDAO();
                 Association association = associationDAO.getAssociationByUsername(username);
 
                 if (association != null) {
-                    System.out.println("wsol lehna 2 ");
                     gui.AssociationPanel associationPanel = new gui.AssociationPanel(association);
                     mainPanel.add(associationPanel, "Association_PANEL");
                     cardLayout.show(mainPanel, "Association_PANEL");
