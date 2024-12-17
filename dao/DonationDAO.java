@@ -114,7 +114,6 @@ public class DonationDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                // Create a Donation object for each record
                 Donation donation = new Donation(
                         resultSet.getInt("id"),
                         resultSet.getString("type"),
