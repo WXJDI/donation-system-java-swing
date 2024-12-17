@@ -20,7 +20,7 @@ public class AssociationPanel extends JPanel {
 
     private JLabel titleLabel;
 
-    public AssociationPanel(Association association) {
+    public AssociationPanel(Association association, JPanel mainPanel, CardLayout cardLayout) {
         this.associationService = new AssociationService();
 
         setLayout(new BorderLayout());
@@ -55,7 +55,34 @@ public class AssociationPanel extends JPanel {
         collectDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         collectDonationButton.addActionListener(e -> handleCollectDonation());
 
+        JButton associationDashboardButton = new JButton("Dashboard");
+        associationDashboardButton.setFont(GlobalConstants.LABEL_FONT);
+        associationDashboardButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        associationDashboardButton.setForeground(Color.WHITE);
+        associationDashboardButton.setFocusPainted(false);
+        associationDashboardButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
+        associationDashboardButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        associationDashboardButton.addActionListener(actionEvent -> {
+           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(association.getId());
+           mainPanel.add(associationDashboardPanel, "ASSOCIATION_DASHBOARD_PANEL");
+           cardLayout.show(mainPanel, "ASSOCIATION_DASHBOARD_PANEL");
+        });
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(GlobalConstants.LABEL_FONT);
+        logoutButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logoutButton.addActionListener(actionEvent -> {
+            cardLayout.show(mainPanel, "LOGIN");
+        });
+
         buttonPanel.add(collectDonationButton);
+        buttonPanel.add(associationDashboardButton);
+        buttonPanel.add(logoutButton);
+
         add(buttonPanel, BorderLayout.SOUTH);
 
         loadDonations();
