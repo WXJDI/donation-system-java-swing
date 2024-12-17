@@ -171,7 +171,7 @@ public class DonationPanel extends JPanel {
             DonationForm donationForm = new DonationForm(currentDonor, existingDonation);
 
             DonationDialog dialog = new DonationDialog(
-                    this, // Pass the JPanel as the parent
+                    this,
                     "Edit Donation",
                     donationForm,
                     "Save Changes",

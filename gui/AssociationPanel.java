@@ -1,5 +1,11 @@
 package gui;
 
+import app.GlobalConstants;
+import gui.components.CollectDonationDialog;
+import models.Association;
+import models.Donation;
+import services.AssociationService;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -7,24 +13,14 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
-import app.GlobalConstants;
-import gui.components.CollectDonationDialog;
-import models.Donation;
-import services.AssociationService;
-import models.Association;
-
 public class AssociationPanel extends JPanel {
     private JTable donationTable;
     private DefaultTableModel tableModel;
     private AssociationService associationService;
-    private Association currentAssociation;
 
     private JLabel titleLabel;
-    private JButton addDonationButton;
-    private JButton viewDonationButton;
 
     public AssociationPanel(Association association) {
-        this.currentAssociation = association;
         this.associationService = new AssociationService();
 
         setLayout(new BorderLayout());
@@ -32,7 +28,7 @@ public class AssociationPanel extends JPanel {
         titleLabel = new JLabel("Available donations", JLabel.CENTER);
         titleLabel.setFont(GlobalConstants.TITLE_FONT);
         titleLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
-        add(titleLabel, BorderLayout.NORTH); // Title at the top
+        add(titleLabel, BorderLayout.NORTH);
 
         tableModel = new DefaultTableModel(new Object[]{"ID", "Type", "Description", "Quantity", "Available"}, 0) {
             @Override
@@ -124,7 +120,7 @@ public class AssociationPanel extends JPanel {
         if (dialog.isConfirmed()) {
             int quantityToCollect = dialog.getQuantityToCollect();
 
-            boolean success = associationService.collectDonation(currentAssociation.getId(), donationId, quantityToCollect);
+            boolean success = associationService.collectDonation(donationId, quantityToCollect);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Donation collected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

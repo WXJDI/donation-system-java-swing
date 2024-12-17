@@ -46,6 +46,7 @@ public class DonorDAO {
         }
         return null;
     }
+
     public Donor getDonorByUsername(String username) {
         userDAO = new dao.UserDAO();
         User user = userDAO.getUserByUsername(username);

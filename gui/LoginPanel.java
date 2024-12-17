@@ -1,16 +1,17 @@
 package gui;
 
 import app.GlobalConstants;
-import models.Donor;
+import dao.AssociationDAO;
 import models.Association;
+import models.Donor;
 import services.DonorService;
 import services.UserService;
 import utils.ResourceUtils;
-import dao.AssociationDAO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginPanel extends JPanel {
     JPanel mainPanel;
@@ -34,7 +35,7 @@ public class LoginPanel extends JPanel {
         JLabel titleLabel = new JLabel("Welcome to Donation System");
         titleLabel.setFont(GlobalConstants.TITLE_FONT);
         titleLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Title spans across the remaining space
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(titleLabel, gbc);
 
         JLabel usernameLabel = new JLabel("Username: ");

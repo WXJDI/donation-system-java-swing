@@ -1,4 +1,3 @@
--- Create the User table
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -6,7 +5,6 @@ CREATE TABLE User (
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
--- Create the Donor table
 CREATE TABLE Donor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -16,7 +14,6 @@ CREATE TABLE Donor (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Create the Association table
 CREATE TABLE Association (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
@@ -26,7 +23,6 @@ CREATE TABLE Association (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Create the Donation table
 CREATE TABLE Donation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(255) NOT NULL,
@@ -38,7 +34,6 @@ CREATE TABLE Donation (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Create the DonationCollection table
 CREATE TABLE DonationCollection (
     id INT AUTO_INCREMENT PRIMARY KEY,
     donation_id INT NOT NULL,

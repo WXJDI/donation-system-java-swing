@@ -26,10 +26,8 @@ public class GlobalConstants {
     public static final Color TABLE_SELECTION_FG = Color.BLACK;
     public static final Color ADD_BUTTON_BG_COLOR = new Color(34, 139, 34);
     public static final Color ADD_BUTTON_FG_COLOR = Color.WHITE;
-
     public static final Color EDIT_BUTTON_BG_COLOR = new Color(135, 206, 250);
     public static final Color EDIT_BUTTON_FG_COLOR = Color.WHITE;
-
     public static final Color DELETE_BUTTON_BG_COLOR = new Color(178, 34, 34);
     public static final Color DELETE_BUTTON_FG_COLOR = Color.WHITE;
 

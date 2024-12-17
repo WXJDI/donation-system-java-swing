@@ -9,17 +9,13 @@ public class DonationDialog extends JDialog {
     private boolean confirmed;
 
     public DonationDialog(Component parent, String title, JPanel formPanel, String confirmButtonText, Runnable onConfirmAction) {
-        // Find the closest window ancestor
         super((Frame) SwingUtilities.getWindowAncestor(parent), title, true); // Modal dialog
         confirmed = false;
 
-        // Set up dialog layout
         setLayout(new BorderLayout());
 
-        // Add form panel
         add(formPanel, BorderLayout.CENTER);
 
-        // Create buttons
         JButton confirmButton = new JButton(confirmButtonText);
         confirmButton.setFont(GlobalConstants.LABEL_FONT);
         confirmButton.setBackground(GlobalConstants.OK_BUTTON_BG_COLOR);
@@ -36,21 +32,18 @@ public class DonationDialog extends JDialog {
         cancelButton.setFocusPainted(false);
         cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // Add button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Button actions
         confirmButton.addActionListener(e -> {
             confirmed = true;
-            onConfirmAction.run(); // Execute the custom action
+            onConfirmAction.run();
             dispose();
         });
         cancelButton.addActionListener(e -> dispose());
 
-        // Set dialog properties
         pack();
         setLocationRelativeTo(parent);
     }

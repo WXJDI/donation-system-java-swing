@@ -24,7 +24,6 @@ public class DonationForm extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Type Field
         typeField = new JTextField();
         typeField.setFont(GlobalConstants.INPUT_FONT);
         typeField.setPreferredSize(GlobalConstants.TEXT_FIELD_SIZE);

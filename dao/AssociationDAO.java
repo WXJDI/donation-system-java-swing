@@ -31,7 +31,6 @@ public class AssociationDAO {
                 "INNER JOIN User u ON a.user_id = u.id " +
                 "WHERE u.username = ?";
 
-
         Connection conn = DBConnection.getConnection();
 
         try {
@@ -40,7 +39,6 @@ public class AssociationDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Create the User object first
                 User user = new User(
                         resultSet.getInt("user_id"),
                         resultSet.getString("username"),
@@ -48,21 +46,16 @@ public class AssociationDAO {
                         resultSet.getString("email")
                 );
 
-                // Create and return the Association object with the User
                 return new Association(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("location"),
-                        user // Pass the User object
+                        user
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if no matching association is found
+        return null;
     }
-
-
-
-
 }

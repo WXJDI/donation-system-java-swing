@@ -4,19 +4,16 @@ import app.GlobalConstants;
 
 import javax.swing.*;
 import java.awt.*;
-import models.Association;
 
 public class MainFrame extends JFrame {
-
     private JPanel mainPanel;
     public CardLayout cardLayout;
 
     public MainFrame() {
-        // Frame Properties
         setTitle("Donation System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(GlobalConstants.FRAME_SIZE);
-        setLocationRelativeTo(null); // Center the window
+        setLocationRelativeTo(null);
         setResizable(false);
 
         cardLayout = new CardLayout();
@@ -33,11 +30,5 @@ public class MainFrame extends JFrame {
         add(mainPanel);
 
         cardLayout.show(mainPanel, "LOGIN");
-
-
-
-
     }
-
-
 }

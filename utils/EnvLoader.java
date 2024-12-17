@@ -13,11 +13,10 @@ public class EnvLoader {
         try (BufferedReader reader = new BufferedReader(new FileReader(".env"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Skip comments and blank lines
                 if (line.trim().isEmpty() || line.trim().startsWith("#")) {
                     continue;
                 }
-                // Split the line into key and value
+
                 String[] parts = line.split("=", 2);
                 if (parts.length == 2) {
                     ENV_VARS.put(parts[0].trim(), parts[1].trim());

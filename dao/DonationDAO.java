@@ -3,7 +3,7 @@ package dao;
 import models.Donation;
 import models.Donor;
 import utils.DBConnection;
-import dao.DonorDAO ;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DonationDAO {
-    private dao.DonorDAO donorDAO;
-
     public boolean addDonation(Donation donation) {
         String sqlQuery = "INSERT INTO Donation (type, description, quantity, isAvailable, donor_id) values (?, ?, ?, ?, ?)";
         Connection conn = DBConnection.getConnection();
@@ -83,7 +81,7 @@ public class DonationDAO {
     }
 
     public ArrayList<Donation> getAllDonationsByDonorId(int donorId) {
-        DonorDAO  donorDAO= new DonorDAO();
+        DonorDAO donorDAO = new DonorDAO();
         ArrayList<Donation> donations = new ArrayList<>();
         String sqlQuery = "SELECT * FROM Donation WHERE donor_id = ?";
         Connection conn = DBConnection.getConnection();
@@ -104,6 +102,7 @@ public class DonationDAO {
         }
         return donations;
     }
+
     public ArrayList<Donation> getAvailableDonations() {
         ArrayList<Donation> donations = new ArrayList<>();
         String sqlQuery = "SELECT * FROM Donation WHERE isAvailable = 1";
@@ -129,7 +128,8 @@ public class DonationDAO {
         }
         return donations;
     }
-    public boolean collectDonation(int associationId, int donationId, int quantityToCollect) {
+
+    public boolean collectDonation(int donationId, int quantityToCollect) {
         String sqlQuery = "UPDATE Donation SET quantity = quantity - ? WHERE id = ? AND quantity >= ?";
         Connection conn = DBConnection.getConnection();
 
@@ -137,19 +137,12 @@ public class DonationDAO {
             PreparedStatement statement = conn.prepareStatement(sqlQuery);
             statement.setInt(1, quantityToCollect);
             statement.setInt(2, donationId);
-            statement.setInt(3, quantityToCollect); // Ensure there's enough quantity
+            statement.setInt(3, quantityToCollect);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Return true if the update was successful
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-
-
-
-
-
-
-
 }

@@ -12,7 +12,9 @@ public class Association {
         this.location = location;
         this.user = user;
     }
+
     public Association() {} ;
+
     public int getId() {
         return id;
     }

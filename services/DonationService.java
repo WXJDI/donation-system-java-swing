@@ -7,7 +7,6 @@ import models.Donor;
 import java.util.ArrayList;
 
 public class DonationService {
-
     public Donation createDonation(String type, String description, int quantity, Donor donor) {
         DonationDAO donationDAO = new DonationDAO();
         try {

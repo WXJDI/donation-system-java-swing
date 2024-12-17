@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class RegisterDonorPanel extends JPanel {
-
     public RegisterDonorPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new BorderLayout());
         setBackground(GlobalConstants.PRIMARY_COLOR);
@@ -86,45 +85,38 @@ public class RegisterDonorPanel extends JPanel {
         confirmPasswordField.setBackground(Color.WHITE);
         confirmPasswordField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        // Add components to formPanel
         int row = 0;
 
-        // Username
         gbc.gridx = 0;
         gbc.gridy = row;
         formPanel.add(usernameLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(usernameField, gbc);
 
-        // Email
         gbc.gridx = 0;
         gbc.gridy = ++row;
         formPanel.add(emailLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(emailField, gbc);
 
-        // Name
         gbc.gridx = 0;
         gbc.gridy = ++row;
         formPanel.add(nameLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(nameField, gbc);
 
-        // Address
         gbc.gridx = 0;
         gbc.gridy = ++row;
         formPanel.add(addressLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(addressField, gbc);
 
-        // Password
         gbc.gridx = 0;
         gbc.gridy = ++row;
         formPanel.add(passwordLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(passwordField, gbc);
 
-        // Confirm Password
         gbc.gridx = 0;
         gbc.gridy = ++row;
         formPanel.add(confirmPasswordLabel, gbc);
@@ -158,32 +150,26 @@ public class RegisterDonorPanel extends JPanel {
                 String password = new String(passwordField.getPassword());
                 String confirmPassword = new String(confirmPasswordField.getPassword());
 
-                // Username Validation
                 if (username.length() < 6) {
                     errorMessages.append("- Username must be at least 6 characters long.\n");
                 }
 
-                // Email Validation
                 if (!email.matches("^[^@\s]+@[^@\s]+\\.[^@\s]+$")) {
                     errorMessages.append("- Email must be a valid format.\n");
                 }
 
-                // Name Validation
                 if (name.trim().isEmpty()) {
                     errorMessages.append("- Name cannot be empty.\n");
                 }
 
-                // Address Validation
                 if (address.trim().isEmpty()) {
                     errorMessages.append("- Address cannot be empty.\n");
                 }
 
-                // Password Validation
                 if (password.length() < 8) {
                     errorMessages.append("- Password must be at least 8 characters long.\n");
                 }
 
-                // Confirm Password Validation
                 if (!password.equals(confirmPassword)) {
                     errorMessages.append("- Passwords do not match.\n");
                 }
@@ -254,7 +240,6 @@ public class RegisterDonorPanel extends JPanel {
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Padding for the form elements
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 }
