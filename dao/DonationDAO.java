@@ -105,7 +105,7 @@ public class DonationDAO {
 
     public ArrayList<Donation> getAvailableDonations() {
         ArrayList<Donation> donations = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM Donation WHERE isAvailable = 1";
+        String sqlQuery = "SELECT * FROM Donation";
         Connection conn = DBConnection.getConnection();
 
         try {

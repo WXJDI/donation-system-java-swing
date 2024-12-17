@@ -5,6 +5,7 @@ import gui.components.CollectDonationDialog;
 import models.Association;
 import models.Donation;
 import services.AssociationService;
+import services.DonationCollectionService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -17,11 +18,15 @@ public class AssociationPanel extends JPanel {
     private JTable donationTable;
     private DefaultTableModel tableModel;
     private AssociationService associationService;
+    private DonationCollectionService donationCollectionService;
+    private Association currentAssociation;
 
     private JLabel titleLabel;
 
     public AssociationPanel(Association association, JPanel mainPanel, CardLayout cardLayout) {
+        this.currentAssociation = association;
         this.associationService = new AssociationService();
+        this.donationCollectionService = new DonationCollectionService();
 
         setLayout(new BorderLayout());
 
@@ -63,7 +68,7 @@ public class AssociationPanel extends JPanel {
         associationDashboardButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         associationDashboardButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         associationDashboardButton.addActionListener(actionEvent -> {
-           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(association.getId());
+           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(currentAssociation.getId());
            mainPanel.add(associationDashboardPanel, "ASSOCIATION_DASHBOARD_PANEL");
            cardLayout.show(mainPanel, "ASSOCIATION_DASHBOARD_PANEL");
         });
@@ -140,6 +145,10 @@ public class AssociationPanel extends JPanel {
 
         int donationId = (int) tableModel.getValueAt(selectedRow, 0);
         int availableQuantity = (int) tableModel.getValueAt(selectedRow, 3);
+        if (availableQuantity == 0) {
+            JOptionPane.showMessageDialog(this, "At this time, donations is unavailable, but we will let you know if more become available.", "Not Available", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         CollectDonationDialog dialog = new CollectDonationDialog((JFrame) SwingUtilities.getWindowAncestor(this), availableQuantity);
         dialog.setVisible(true);
@@ -147,7 +156,7 @@ public class AssociationPanel extends JPanel {
         if (dialog.isConfirmed()) {
             int quantityToCollect = dialog.getQuantityToCollect();
 
-            boolean success = associationService.collectDonation(donationId, quantityToCollect);
+            boolean success = donationCollectionService.collectDonation(currentAssociation.getId(), donationId, quantityToCollect);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Donation collected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
