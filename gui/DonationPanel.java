@@ -21,7 +21,7 @@ public class DonationPanel extends JPanel {
     private JTable donationTable;
     private DefaultTableModel tableModel;
 
-    public DonationPanel(Donor donor) {
+    public DonationPanel(Donor donor, JPanel mainPanel, CardLayout cardLayout) {
         this.currentDonor = donor;
         this.donationService = new DonationService();
 
@@ -44,7 +44,6 @@ public class DonationPanel extends JPanel {
         addDonationButton.setFont(GlobalConstants.LABEL_FONT);
         addDonationButton.setBackground(GlobalConstants.ADD_BUTTON_BG_COLOR);
         addDonationButton.setForeground(GlobalConstants.ADD_BUTTON_FG_COLOR);
-        addDonationButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         addDonationButton.setFocusPainted(false);
         addDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -52,21 +51,35 @@ public class DonationPanel extends JPanel {
         editDonationButton.setFont(GlobalConstants.LABEL_FONT);
         editDonationButton.setBackground(GlobalConstants.EDIT_BUTTON_BG_COLOR);
         editDonationButton.setForeground(GlobalConstants.EDIT_BUTTON_FG_COLOR);
-        editDonationButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         editDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton deleteDonationButton = new JButton("Delete donation");
         deleteDonationButton.setFont(GlobalConstants.LABEL_FONT);
         deleteDonationButton.setBackground(GlobalConstants.DELETE_BUTTON_BG_COLOR);
         deleteDonationButton.setForeground(GlobalConstants.DELETE_BUTTON_FG_COLOR);
-        deleteDonationButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         deleteDonationButton.setFocusPainted(false);
         deleteDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        JButton donorDashboardButton = new JButton("Dashboard");
+        donorDashboardButton.setFont(GlobalConstants.LABEL_FONT);
+        donorDashboardButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        donorDashboardButton.setForeground(Color.WHITE);
+        donorDashboardButton.setFocusPainted(false);
+        donorDashboardButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(GlobalConstants.LABEL_FONT);
+        logoutButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addDonationButton);
         buttonPanel.add(editDonationButton);
         buttonPanel.add(deleteDonationButton);
+        buttonPanel.add(donorDashboardButton);
+        buttonPanel.add(logoutButton);
 
         add(buttonPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -100,6 +113,16 @@ public class DonationPanel extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a donation to delete.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        });
+
+        donorDashboardButton.addActionListener(actionEvent -> {
+            DonorDashboardPanel donorDashboardPanel = new DonorDashboardPanel(currentDonor.getId());
+            mainPanel.add(donorDashboardPanel, "DONOR_DASHBOARD_PANEL");
+            cardLayout.show(mainPanel, "DONOR_DASHBOARD_PANEL");
+        });
+
+        logoutButton.addActionListener(actionEvent -> {
+            cardLayout.show(mainPanel, "LOGIN");
         });
     }
 

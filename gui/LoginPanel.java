@@ -85,9 +85,11 @@ public class LoginPanel extends JPanel {
                 try {
                     Donor donor = donorService.getDonorByUsername(username);
                     if (donor != null) {
-                        gui.DonationPanel donationPanel = new gui.DonationPanel(donor);
+                        gui.DonationPanel donationPanel = new gui.DonationPanel(donor, mainPanel, cardLayout);
                         mainPanel.add(donationPanel, "DONATION_PANEL");
                         cardLayout.show(mainPanel, "DONATION_PANEL");
+                        usernameField.setText("");
+                        passwordField.setText("");
                     }
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
@@ -98,9 +100,11 @@ public class LoginPanel extends JPanel {
                 Association association = associationDAO.getAssociationByUsername(username);
 
                 if (association != null) {
-                    gui.AssociationPanel associationPanel = new gui.AssociationPanel(association);
+                    gui.AssociationPanel associationPanel = new gui.AssociationPanel(association, mainPanel, cardLayout);
                     mainPanel.add(associationPanel, "Association_PANEL");
                     cardLayout.show(mainPanel, "Association_PANEL");
+                    usernameField.setText("");
+                    passwordField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid credentials!", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
