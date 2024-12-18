@@ -22,6 +22,7 @@ public class GlobalConstants {
     public static final Color TABLE_SELECTION_BG = new Color(0, 102, 204);
     public static final Color TABLE_SELECTION_FG = Color.WHITE;
     public static final Color TABLE_HEADER_BG = new Color(70, 130, 180);
+    public static final Color TABLE_ALTERNATE_BG = new Color(253, 240, 206);
     public static final Color TABLE_BG = new Color(245, 245, 250);
 
     // font config

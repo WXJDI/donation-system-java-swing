@@ -38,7 +38,7 @@ public class DonationPanel extends JPanel {
         donationTable = new JTable(tableModel) {
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component returnComp = super.prepareRenderer(renderer, row, column);
-                Color alternateColor = GlobalConstants.TABLE_HEADER_BG;
+                Color alternateColor = GlobalConstants.TABLE_ALTERNATE_BG;
                 Color whiteColor = Color.WHITE;
                 if (!returnComp.getBackground().equals(getSelectionBackground())) {
                     Color bg = (row % 2 == 0 ? whiteColor : alternateColor);
