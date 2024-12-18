@@ -30,26 +30,14 @@ public class AssociationPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        titleLabel = new JLabel("Available donations", JLabel.CENTER);
+        JPanel topPanel = new JPanel(new BorderLayout());
+
+        titleLabel = new JLabel("Available Donations", JLabel.CENTER);
         titleLabel.setFont(GlobalConstants.TITLE_FONT);
         titleLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
-        add(titleLabel, BorderLayout.NORTH);
+        topPanel.add(titleLabel, BorderLayout.NORTH);
 
-        tableModel = new DefaultTableModel(new Object[]{"ID", "Type", "Description", "Quantity", "Available"}, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        donationTable = new JTable(tableModel);
-        customizeTable();
-
-        JScrollPane scrollPane = new JScrollPane(donationTable);
-
-        add(scrollPane, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton collectDonationButton = new JButton("Collect Donation");
         collectDonationButton.setFont(GlobalConstants.LABEL_FONT);
@@ -68,9 +56,9 @@ public class AssociationPanel extends JPanel {
         associationDashboardButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         associationDashboardButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         associationDashboardButton.addActionListener(actionEvent -> {
-           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(currentAssociation.getId(), mainPanel, cardLayout);
-           mainPanel.add(associationDashboardPanel, "ASSOCIATION_DASHBOARD_PANEL");
-           cardLayout.show(mainPanel, "ASSOCIATION_DASHBOARD_PANEL");
+            AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(currentAssociation.getId(), mainPanel, cardLayout);
+            mainPanel.add(associationDashboardPanel, "ASSOCIATION_DASHBOARD_PANEL");
+            cardLayout.show(mainPanel, "ASSOCIATION_DASHBOARD_PANEL");
         });
 
         JButton logoutButton = new JButton("Logout");
@@ -88,7 +76,20 @@ public class AssociationPanel extends JPanel {
         buttonPanel.add(associationDashboardButton);
         buttonPanel.add(logoutButton);
 
-        add(buttonPanel, BorderLayout.SOUTH);
+        topPanel.add(buttonPanel, BorderLayout.SOUTH);
+        add(topPanel, BorderLayout.NORTH);
+
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Type", "Description", "Quantity", "Available"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        donationTable = new JTable(tableModel);
+        customizeTable();
+
+        JScrollPane scrollPane = new JScrollPane(donationTable);
+        add(scrollPane, BorderLayout.CENTER);
 
         loadDonations();
     }
@@ -96,7 +97,7 @@ public class AssociationPanel extends JPanel {
     private void customizeTable() {
         donationTable.setRowHeight(30);
 
-        donationTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        donationTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         donationTable.getTableHeader().setFont(GlobalConstants.TABLE_COLUMN_NAME_FONT);
         donationTable.setFont(GlobalConstants.LABEL_FONT);
 
@@ -146,7 +147,7 @@ public class AssociationPanel extends JPanel {
         int donationId = (int) tableModel.getValueAt(selectedRow, 0);
         int availableQuantity = (int) tableModel.getValueAt(selectedRow, 3);
         if (availableQuantity == 0) {
-            JOptionPane.showMessageDialog(this, "At this time, donations is unavailable, but we will let you know if more become available.", "Not Available", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "At this time, donations are unavailable, but we will let you know if more become available.", "Not Available", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
