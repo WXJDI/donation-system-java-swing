@@ -7,6 +7,7 @@ import services.DonationCollectionService;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
@@ -54,7 +55,18 @@ public class DonorDashboardPanel extends JPanel {
                 return false;
             }
         };
-        collectedDonationsTable = new JTable(tableModel);
+        collectedDonationsTable = new JTable(tableModel) {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+                Color alternateColor = GlobalConstants.TABLE_HEADER_BG;
+                Color whiteColor = Color.WHITE;
+                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                    Color bg = (row % 2 == 0 ? whiteColor : alternateColor);
+                    returnComp.setBackground(bg);
+                }
+                return returnComp;
+            }
+        };
 
         customizeTable();
 
@@ -96,6 +108,10 @@ public class DonorDashboardPanel extends JPanel {
         collectedDonationsTable.setGridColor(GlobalConstants.TABLE_GRID_COLOR);
         collectedDonationsTable.setSelectionBackground(GlobalConstants.TABLE_SELECTION_BG);
         collectedDonationsTable.setSelectionForeground(GlobalConstants.TABLE_SELECTION_FG);
+
+        collectedDonationsTable.setBackground(GlobalConstants.TABLE_BG);
+        collectedDonationsTable.getTableHeader().setBackground(GlobalConstants.TABLE_HEADER_BG);
+        collectedDonationsTable.getTableHeader().setForeground(Color.WHITE);
     }
 
     public void loadCollectedDonations(int donorId) {
@@ -111,5 +127,20 @@ public class DonorDashboardPanel extends JPanel {
                     donationCollection.getDateDonationCollected()
             });
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color startColor = GlobalConstants.LIGHT_BLUE_COLOR;
+        Color endColor = GlobalConstants.SECONDARY_COLOR;
+        int width = getWidth();
+        int height = getHeight();
+
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, width, height);
     }
 }
