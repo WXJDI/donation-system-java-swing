@@ -40,7 +40,7 @@ public class DonationForm extends JPanel {
         gbc.gridx = 1;
         add(typeField, gbc);
 
-        descriptionArea = new JTextArea(4, 20);
+        descriptionArea = new JTextArea(4, 200);
         descriptionArea.setFont(GlobalConstants.INPUT_FONT);
         descriptionArea.setBackground(Color.WHITE);
         descriptionArea.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
@@ -65,7 +65,7 @@ public class DonationForm extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         add(scrollPane, gbc);
 
-        quantitySpinner = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        quantitySpinner = new JSpinner(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
         JComponent spinnerEditor = quantitySpinner.getEditor();
         if (spinnerEditor instanceof JSpinner.DefaultEditor) {
             JTextField spinnerTextField = ((JSpinner.DefaultEditor) spinnerEditor).getTextField();

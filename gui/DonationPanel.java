@@ -42,21 +42,21 @@ public class DonationPanel extends JPanel {
 
         JButton addDonationButton = new JButton("Add new donation");
         addDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        addDonationButton.setBackground(GlobalConstants.ADD_BUTTON_BG_COLOR);
-        addDonationButton.setForeground(GlobalConstants.ADD_BUTTON_FG_COLOR);
+        addDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        addDonationButton.setForeground(Color.WHITE);
         addDonationButton.setFocusPainted(false);
         addDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton editDonationButton = new JButton("Edit donation");
         editDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        editDonationButton.setBackground(GlobalConstants.EDIT_BUTTON_BG_COLOR);
-        editDonationButton.setForeground(GlobalConstants.EDIT_BUTTON_FG_COLOR);
+        editDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        editDonationButton.setForeground(Color.WHITE);
         editDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton deleteDonationButton = new JButton("Delete donation");
         deleteDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        deleteDonationButton.setBackground(GlobalConstants.DELETE_BUTTON_BG_COLOR);
-        deleteDonationButton.setForeground(GlobalConstants.DELETE_BUTTON_FG_COLOR);
+        deleteDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        deleteDonationButton.setForeground(Color.WHITE);
         deleteDonationButton.setFocusPainted(false);
         deleteDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 

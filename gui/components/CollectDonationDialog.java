@@ -38,8 +38,8 @@ public class CollectDonationDialog extends JDialog {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton confirmButton = new JButton("Confirm");
         confirmButton.setFont(GlobalConstants.LABEL_FONT);
-        confirmButton.setBackground(GlobalConstants.ADD_BUTTON_BG_COLOR);
-        confirmButton.setForeground(GlobalConstants.ADD_BUTTON_FG_COLOR);
+        confirmButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        confirmButton.setForeground(Color.WHITE);
         confirmButton.setFocusPainted(false);
         confirmButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         confirmButton.addActionListener(e -> {
@@ -60,8 +60,8 @@ public class CollectDonationDialog extends JDialog {
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setFont(GlobalConstants.LABEL_FONT);
-        cancelButton.setBackground(GlobalConstants.DELETE_BUTTON_BG_COLOR);
-        cancelButton.setForeground(GlobalConstants.DELETE_BUTTON_FG_COLOR);
+        cancelButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setFocusPainted(false);
         cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cancelButton.addActionListener(e -> dispose());

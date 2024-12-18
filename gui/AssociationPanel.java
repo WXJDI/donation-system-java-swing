@@ -53,8 +53,8 @@ public class AssociationPanel extends JPanel {
 
         JButton collectDonationButton = new JButton("Collect Donation");
         collectDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        collectDonationButton.setBackground(GlobalConstants.ADD_BUTTON_BG_COLOR);
-        collectDonationButton.setForeground(GlobalConstants.DELETE_BUTTON_FG_COLOR);
+        collectDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        collectDonationButton.setForeground(Color.WHITE);
         collectDonationButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         collectDonationButton.setFocusPainted(false);
         collectDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
