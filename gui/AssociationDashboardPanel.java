@@ -3,12 +3,16 @@ package gui;
 import app.GlobalConstants;
 import models.DonationCollection;
 import services.DonationCollectionService;
+import utils.ResourceUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class AssociationDashboardPanel extends JPanel {
@@ -33,20 +37,19 @@ public class AssociationDashboardPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(titleLabel, gbc);
 
-        JButton backButton = new JButton("Back");
-        backButton.setFont(GlobalConstants.LABEL_FONT);
-        backButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
-        backButton.setForeground(Color.WHITE);
-        backButton.setFocusPainted(false);
-        backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        backButton.addActionListener(actionEvent -> {
-            cardLayout.show(mainPanel, "ASSOCIATION_PANEL");
+        JLabel backIconLabel = ResourceUtils.loadImage(GlobalConstants.BACK_ICON_PATH);
+        backIconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        backIconLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "ASSOCIATION_PANEL");
+            }
         });
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        add(backButton, gbc);
+        add(backIconLabel, gbc);
 
         tableModel = new DefaultTableModel(new Object[]{"Type", "Description", "Quantity", "Donor", "Date"}, 0) {
             @Override
@@ -54,7 +57,18 @@ public class AssociationDashboardPanel extends JPanel {
                 return false;
             }
         };
-        collectedDonationsTable = new JTable(tableModel);
+        collectedDonationsTable = new JTable(tableModel) {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+                Color alternateColor = GlobalConstants.TABLE_ALTERNATE_BG;
+                Color whiteColor = Color.WHITE;
+                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                    Color bg = (row % 2 == 0 ? whiteColor : alternateColor);
+                    returnComp.setBackground(bg);
+                }
+                return returnComp;
+            }
+        };
 
         customizeTable();
 
@@ -110,5 +124,24 @@ public class AssociationDashboardPanel extends JPanel {
         collectedDonationsTable.setGridColor(GlobalConstants.TABLE_GRID_COLOR);
         collectedDonationsTable.setSelectionBackground(GlobalConstants.TABLE_SELECTION_BG);
         collectedDonationsTable.setSelectionForeground(GlobalConstants.TABLE_SELECTION_FG);
+
+        collectedDonationsTable.setBackground(GlobalConstants.TABLE_BG);
+        collectedDonationsTable.getTableHeader().setBackground(GlobalConstants.TABLE_HEADER_BG);
+        collectedDonationsTable.getTableHeader().setForeground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color startColor = GlobalConstants.LIGHT_BLUE_COLOR;
+        Color endColor = GlobalConstants.SECONDARY_COLOR;
+        int width = getWidth();
+        int height = getHeight();
+
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, width, height);
     }
 }

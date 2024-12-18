@@ -15,19 +15,18 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class RegisterDonorPanel extends JPanel {
     public RegisterDonorPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new BorderLayout());
-        setBackground(GlobalConstants.PRIMARY_COLOR);
 
         JPanel formPanel = new JPanel();
+        formPanel.setOpaque(false);
         formPanel.setLayout(new GridBagLayout());
-        formPanel.setBackground(GlobalConstants.PRIMARY_COLOR);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel usernameLabel = new JLabel("Username: ");
+        JLabel usernameLabel = new JLabel("<html><b>Username: </b></html>");
         usernameLabel.setFont(GlobalConstants.LABEL_FONT);
-        usernameLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        usernameLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JTextField usernameField = new JTextField(20);
         usernameField.setFont(GlobalConstants.INPUT_FONT);
@@ -35,9 +34,9 @@ public class RegisterDonorPanel extends JPanel {
         usernameField.setBackground(Color.WHITE);
         usernameField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel emailLabel = new JLabel("Email: ");
+        JLabel emailLabel = new JLabel("<html><b>Email: </b></html>");
         emailLabel.setFont(GlobalConstants.LABEL_FONT);
-        emailLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        emailLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JTextField emailField = new JTextField(20);
         emailField.setFont(GlobalConstants.INPUT_FONT);
@@ -45,9 +44,9 @@ public class RegisterDonorPanel extends JPanel {
         emailField.setBackground(Color.WHITE);
         emailField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel nameLabel = new JLabel("Name: ");
+        JLabel nameLabel = new JLabel("<html><b>Name: </b></html>");
         nameLabel.setFont(GlobalConstants.LABEL_FONT);
-        nameLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        nameLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JTextField nameField = new JTextField(20);
         nameField.setFont(GlobalConstants.INPUT_FONT);
@@ -55,9 +54,9 @@ public class RegisterDonorPanel extends JPanel {
         nameField.setBackground(Color.WHITE);
         nameField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel addressLabel = new JLabel("Address: ");
+        JLabel addressLabel = new JLabel("<html><b>Address: </b></html>");
         addressLabel.setFont(GlobalConstants.LABEL_FONT);
-        addressLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        addressLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JTextField addressField = new JTextField(20);
         addressField.setFont(GlobalConstants.INPUT_FONT);
@@ -65,9 +64,9 @@ public class RegisterDonorPanel extends JPanel {
         addressField.setBackground(Color.WHITE);
         addressField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel passwordLabel = new JLabel("Password: ");
+        JLabel passwordLabel = new JLabel("<html><b>Password: </b></html>");
         passwordLabel.setFont(GlobalConstants.LABEL_FONT);
-        passwordLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        passwordLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JPasswordField passwordField = new JPasswordField(20);
         passwordField.setFont(GlobalConstants.INPUT_FONT);
@@ -75,9 +74,9 @@ public class RegisterDonorPanel extends JPanel {
         passwordField.setBackground(Color.WHITE);
         passwordField.setBorder(GlobalConstants.TEXT_FIELD_BORDER);
 
-        JLabel confirmPasswordLabel = new JLabel("Confirm Password: ");
+        JLabel confirmPasswordLabel = new JLabel("<html><b>Confirm Password: </b></html>");
         confirmPasswordLabel.setFont(GlobalConstants.LABEL_FONT);
-        confirmPasswordLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        confirmPasswordLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
 
         JPasswordField confirmPasswordField = new JPasswordField(20);
         confirmPasswordField.setFont(GlobalConstants.INPUT_FONT);
@@ -124,6 +123,7 @@ public class RegisterDonorPanel extends JPanel {
         formPanel.add(confirmPasswordField, gbc);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new GridBagLayout());
 
         GridBagConstraints gbcButton = new GridBagConstraints();
@@ -242,5 +242,20 @@ public class RegisterDonorPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color startColor = GlobalConstants.SECONDARY_COLOR;
+        Color endColor = GlobalConstants.LIGHT_BLUE_COLOR;
+        int width = getWidth();
+        int height = getHeight();
+
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, width, height);
     }
 }

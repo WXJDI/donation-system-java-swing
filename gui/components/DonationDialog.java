@@ -18,16 +18,16 @@ public class DonationDialog extends JDialog {
 
         JButton confirmButton = new JButton(confirmButtonText);
         confirmButton.setFont(GlobalConstants.LABEL_FONT);
-        confirmButton.setBackground(GlobalConstants.OK_BUTTON_BG_COLOR);
-        confirmButton.setForeground(GlobalConstants.OK_BUTTON_FG_COLOR);
+        confirmButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        confirmButton.setForeground(Color.WHITE);
         confirmButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         confirmButton.setFocusPainted(false);
         confirmButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setFont(GlobalConstants.LABEL_FONT);
-        cancelButton.setBackground(GlobalConstants.CANCEL_BUTTON_BG_COLOR);
-        cancelButton.setForeground(GlobalConstants.CANCEL_BUTTON_FG_COLOR);
+        cancelButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         cancelButton.setFocusPainted(false);
         cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

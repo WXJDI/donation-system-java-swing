@@ -10,6 +10,7 @@ import services.DonationService;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
@@ -34,7 +35,18 @@ public class DonationPanel extends JPanel {
             }
         };
 
-        donationTable = new JTable(tableModel);
+        donationTable = new JTable(tableModel) {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+                Color alternateColor = GlobalConstants.TABLE_ALTERNATE_BG;
+                Color whiteColor = Color.WHITE;
+                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                    Color bg = (row % 2 == 0 ? whiteColor : alternateColor);
+                    returnComp.setBackground(bg);
+                }
+                return returnComp;
+            }
+        };
 
         customizeTable();
 
@@ -42,21 +54,21 @@ public class DonationPanel extends JPanel {
 
         JButton addDonationButton = new JButton("Add new donation");
         addDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        addDonationButton.setBackground(GlobalConstants.ADD_BUTTON_BG_COLOR);
-        addDonationButton.setForeground(GlobalConstants.ADD_BUTTON_FG_COLOR);
+        addDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        addDonationButton.setForeground(Color.WHITE);
         addDonationButton.setFocusPainted(false);
         addDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton editDonationButton = new JButton("Edit donation");
         editDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        editDonationButton.setBackground(GlobalConstants.EDIT_BUTTON_BG_COLOR);
-        editDonationButton.setForeground(GlobalConstants.EDIT_BUTTON_FG_COLOR);
+        editDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        editDonationButton.setForeground(Color.WHITE);
         editDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JButton deleteDonationButton = new JButton("Delete donation");
         deleteDonationButton.setFont(GlobalConstants.LABEL_FONT);
-        deleteDonationButton.setBackground(GlobalConstants.DELETE_BUTTON_BG_COLOR);
-        deleteDonationButton.setForeground(GlobalConstants.DELETE_BUTTON_FG_COLOR);
+        deleteDonationButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        deleteDonationButton.setForeground(Color.WHITE);
         deleteDonationButton.setFocusPainted(false);
         deleteDonationButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -74,7 +86,22 @@ public class DonationPanel extends JPanel {
         logoutButton.setFocusPainted(false);
         logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+
+                Color startColor = GlobalConstants.SECONDARY_COLOR;
+                Color endColor = GlobalConstants.LIGHT_BLUE_COLOR;
+                int width = getWidth();
+                int height = getHeight();
+
+                GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, width, height);
+            }
+        };
         buttonPanel.add(addDonationButton);
         buttonPanel.add(editDonationButton);
         buttonPanel.add(deleteDonationButton);
@@ -149,9 +176,15 @@ public class DonationPanel extends JPanel {
         donationTable.getTableHeader().setResizingAllowed(false);
 
         donationTable.setGridColor(GlobalConstants.TABLE_GRID_COLOR);
-        donationTable.setSelectionBackground(GlobalConstants.TABLE_SELECTION_BG);
         donationTable.setSelectionForeground(GlobalConstants.TABLE_SELECTION_FG);
+
+        donationTable.setBackground(GlobalConstants.TABLE_BG);
+        donationTable.getTableHeader().setBackground(GlobalConstants.TABLE_HEADER_BG);
+        donationTable.getTableHeader().setForeground(Color.WHITE);
+
+        donationTable.setSelectionBackground(GlobalConstants.TABLE_SELECTION_BG);
     }
+
 
     public void loadDonations() {
         tableModel.setRowCount(0);

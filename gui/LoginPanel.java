@@ -22,7 +22,6 @@ public class LoginPanel extends JPanel {
         this.cardLayout = cardLayout;
 
         setLayout(new GridBagLayout());
-        setBackground(GlobalConstants.PRIMARY_COLOR);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -38,9 +37,9 @@ public class LoginPanel extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(titleLabel, gbc);
 
-        JLabel usernameLabel = new JLabel("Username: ");
+        JLabel usernameLabel = new JLabel("<html><b>Username: </b></html>");
         usernameLabel.setFont(GlobalConstants.LABEL_FONT);
-        usernameLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        usernameLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
         gbc.gridwidth = 1;
         add(usernameLabel, gbc);
 
@@ -52,9 +51,9 @@ public class LoginPanel extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(usernameField, gbc);
 
-        JLabel passwordLabel = new JLabel("Password: ");
+        JLabel passwordLabel = new JLabel("<html><b>Password: </b></html>");
         passwordLabel.setFont(GlobalConstants.LABEL_FONT);
-        passwordLabel.setForeground(GlobalConstants.BASIC_COLOR);
+        passwordLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
         gbc.gridwidth = 1;
         add(passwordLabel, gbc);
 
@@ -85,7 +84,7 @@ public class LoginPanel extends JPanel {
                 try {
                     Donor donor = donorService.getDonorByUsername(username);
                     if (donor != null) {
-                        gui.DonationPanel donationPanel = new gui.DonationPanel(donor, mainPanel, cardLayout);
+                        DonationPanel donationPanel = new DonationPanel(donor, mainPanel, cardLayout);
                         mainPanel.add(donationPanel, "DONATION_PANEL");
                         cardLayout.show(mainPanel, "DONATION_PANEL");
                         usernameField.setText("");
@@ -145,5 +144,20 @@ public class LoginPanel extends JPanel {
         });
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(registerAssociationLink, gbc);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color startColor = GlobalConstants.SECONDARY_COLOR;
+        Color endColor = GlobalConstants.LIGHT_BLUE_COLOR;
+        int width = getWidth();
+        int height = getHeight();
+
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, width, height);
     }
 }
