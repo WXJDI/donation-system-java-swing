@@ -116,7 +116,7 @@ public class DonationPanel extends JPanel {
         });
 
         donorDashboardButton.addActionListener(actionEvent -> {
-            DonorDashboardPanel donorDashboardPanel = new DonorDashboardPanel(currentDonor.getId());
+            DonorDashboardPanel donorDashboardPanel = new DonorDashboardPanel(currentDonor.getId(), mainPanel, cardLayout);
             mainPanel.add(donorDashboardPanel, "DONOR_DASHBOARD_PANEL");
             cardLayout.show(mainPanel, "DONOR_DASHBOARD_PANEL");
         });

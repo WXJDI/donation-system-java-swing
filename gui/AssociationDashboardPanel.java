@@ -16,15 +16,37 @@ public class AssociationDashboardPanel extends JPanel {
     private DefaultTableModel tableModel;
     private DonationCollectionService donationCollectionService;
 
-    public AssociationDashboardPanel(int associationId) {
+    public AssociationDashboardPanel(int associationId, JPanel mainPanel, CardLayout cardLayout) {
         donationCollectionService = new DonationCollectionService();
 
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel titleLabel = new JLabel("Collected Donations", JLabel.CENTER);
         titleLabel.setFont(GlobalConstants.TITLE_FONT);
         titleLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
-        add(titleLabel, BorderLayout.NORTH);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(titleLabel, gbc);
+
+        JButton backButton = new JButton("Back");
+        backButton.setFont(GlobalConstants.LABEL_FONT);
+        backButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(false);
+        backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        backButton.addActionListener(actionEvent -> {
+            cardLayout.show(mainPanel, "ASSOCIATION_PANEL");
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(backButton, gbc);
 
         tableModel = new DefaultTableModel(new Object[]{"Type", "Description", "Quantity", "Donor", "Date"}, 0) {
             @Override
@@ -37,7 +59,13 @@ public class AssociationDashboardPanel extends JPanel {
         customizeTable();
 
         JScrollPane scrollPane = new JScrollPane(collectedDonationsTable);
-        add(scrollPane, BorderLayout.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(scrollPane, gbc);
 
         loadCollectedDonations(associationId);
     }

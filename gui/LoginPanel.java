@@ -101,8 +101,8 @@ public class LoginPanel extends JPanel {
 
                 if (association != null) {
                     gui.AssociationPanel associationPanel = new gui.AssociationPanel(association, mainPanel, cardLayout);
-                    mainPanel.add(associationPanel, "Association_PANEL");
-                    cardLayout.show(mainPanel, "Association_PANEL");
+                    mainPanel.add(associationPanel, "ASSOCIATION_PANEL");
+                    cardLayout.show(mainPanel, "ASSOCIATION_PANEL");
                     usernameField.setText("");
                     passwordField.setText("");
                 } else {
