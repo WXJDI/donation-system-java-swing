@@ -105,7 +105,7 @@ public class DonationDAO {
 
     public ArrayList<Donation> getAvailableDonations() {
         ArrayList<Donation> donations = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM Donation WHERE isAvailable = 1";
+        String sqlQuery = "SELECT * FROM Donation";
         Connection conn = DBConnection.getConnection();
 
         try {
@@ -127,22 +127,5 @@ public class DonationDAO {
             e.printStackTrace();
         }
         return donations;
-    }
-
-    public boolean collectDonation(int donationId, int quantityToCollect) {
-        String sqlQuery = "UPDATE Donation SET quantity = quantity - ? WHERE id = ? AND quantity >= ?";
-        Connection conn = DBConnection.getConnection();
-
-        try {
-            PreparedStatement statement = conn.prepareStatement(sqlQuery);
-            statement.setInt(1, quantityToCollect);
-            statement.setInt(2, donationId);
-            statement.setInt(3, quantityToCollect);
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }

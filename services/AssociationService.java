@@ -33,9 +33,4 @@ public class AssociationService {
         DonationDAO donationDAO = new dao.DonationDAO();
         return donationDAO.getAvailableDonations();
     }
-
-    public boolean collectDonation(int donationId, int quantityToCollect) {
-        DonationDAO donationDAO = new DonationDAO();
-        return donationDAO.collectDonation(donationId, quantityToCollect);
-    }
 }
