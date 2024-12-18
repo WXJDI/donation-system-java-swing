@@ -68,7 +68,7 @@ public class AssociationPanel extends JPanel {
         associationDashboardButton.setPreferredSize(GlobalConstants.BUTTON_SIZE);
         associationDashboardButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         associationDashboardButton.addActionListener(actionEvent -> {
-           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(currentAssociation.getId());
+           AssociationDashboardPanel associationDashboardPanel = new AssociationDashboardPanel(currentAssociation.getId(), mainPanel, cardLayout);
            mainPanel.add(associationDashboardPanel, "ASSOCIATION_DASHBOARD_PANEL");
            cardLayout.show(mainPanel, "ASSOCIATION_DASHBOARD_PANEL");
         });

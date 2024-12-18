@@ -177,6 +177,7 @@ public class RegisterAssociationPanel extends JPanel {
                         return;
                     }
                     JOptionPane.showMessageDialog(this, "Association registered!");
+                    cardLayout.show(mainPanel, "LOGIN");
                 } catch (SQLIntegrityConstraintViolationException exp) {
                     String message = exp.getMessage();
                     if (message.contains("username")) {

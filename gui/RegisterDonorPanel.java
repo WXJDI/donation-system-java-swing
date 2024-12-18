@@ -185,6 +185,7 @@ public class RegisterDonorPanel extends JPanel {
                             return;
                         }
                         JOptionPane.showMessageDialog(RegisterDonorPanel.this, "Donor registered successfully", "Donor registered", JOptionPane.INFORMATION_MESSAGE);
+                        cardLayout.show(mainPanel, "LOGIN");
                     } catch (SQLIntegrityConstraintViolationException exp) {
                         String message = exp.getMessage();
                         if (message.contains("username")) {
