@@ -36,4 +36,5 @@ public class GlobalConstants {
 
     // Resources config
     public static final String LOGIN_IMAGE_PATH = "../resources/images/login_user_avatar_person_users_icon.png";
+    public static final String BACK_ICON_PATH = "../resources/images/arrow-big-left.png";
 }

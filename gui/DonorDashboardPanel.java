@@ -3,6 +3,7 @@ package gui;
 import app.GlobalConstants;
 import models.DonationCollection;
 import services.DonationCollectionService;
+import utils.ResourceUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class DonorDashboardPanel extends JPanel {
@@ -33,21 +36,20 @@ public class DonorDashboardPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(titleLabel, gbc);
 
-        JButton backButton = new JButton("Back");
-        backButton.setFont(GlobalConstants.LABEL_FONT);
-        backButton.setBackground(GlobalConstants.BUTTON_BG_COLOR);
-        backButton.setForeground(Color.WHITE);
-        backButton.setFocusPainted(false);
-        backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        backButton.addActionListener(actionEvent -> {
-            cardLayout.show(mainPanel, "DONATION_PANEL");
+        JLabel backIconLabel = ResourceUtils.loadImage(GlobalConstants.BACK_ICON_PATH);
+        backIconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        backIconLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "DONATION_PANEL");
+            }
         });
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
-        add(backButton, gbc);
+        add(backIconLabel, gbc);
 
         tableModel = new DefaultTableModel(new Object[]{"Type", "Description", "Quantity", "Association", "Date"}, 0) {
             @Override
