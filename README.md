@@ -18,6 +18,7 @@
   - [Class Diagram](#class-diagram)
   - [Use Case Diagram](#use-case-diagram)
 - [Screenshots](#screenshots)
+- [Project Report](#project-report)
 - [Contributions](#contributions)
 - [License](#license)
 
@@ -142,7 +143,6 @@ Ensure the `mysql-connector-j-9.1.0.jar` file is available in the `lib/` directo
   ![Association Dashboard](screenshots/association-dashboard.avif)
 
 ## Project Report
-
 This project was created as part of our coursework at L'institut supérieur d'informatique (ISI Ariana) by myself and my partner Wajdi. You can view the full project report here: [Project Report](https://docs.google.com/document/d/1jTIKGPCk7zFJRlhYqlZAtrCGzYiZfsAS3IcBJLnfScE/edit?tab=t.0)
 
 ## Contributions
