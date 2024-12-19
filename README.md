@@ -107,6 +107,16 @@ Since the application uses a custom structure and is not Maven-based, follow the
    - Associations: View available donations and collect them.
 3. **Real-time Updates**: Changes made by donors or associations are reflected immediately in the database.
 
+## Screenshots
+![Alt text](screenshots/welcome-page.avif)
+![Alt text](screenshots/login-page.avif)
+![Alt text](screenshots/register-donor.avif)
+![Alt text](screenshots/register-association.avif)
+![Alt text](screenshots/donations.avif)
+![Alt text](screenshots/available-donations.avif)
+![Alt text](screenshots/donation-dashboard.avif)
+![Alt text](screenshots/association-dashboard.avif)
+
 ## Contributions
 Contributions are welcome! Feel free to fork this repository and submit pull requests with improvements or fixes.
 
