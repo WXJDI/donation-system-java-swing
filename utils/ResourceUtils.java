@@ -11,10 +11,13 @@ public class ResourceUtils {
 
         try {
             InputStream inputStream = ResourceUtils.class.getResourceAsStream(resource);
+            System.out.println("Trying to load: " + resource);
+            System.out.println("InputStream is null: " + (inputStream == null));
             if (inputStream == null) {
                 throw new IllegalArgumentException("Resource not found: " + resource);
             }
             image = ImageIO.read(inputStream);
+            System.out.println("Image is null: " + (image == null));
             return new JLabel(new ImageIcon(image));
         } catch (Exception e) {
             System.out.println("Error: " + e);

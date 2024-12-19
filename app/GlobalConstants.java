@@ -15,6 +15,7 @@ public class GlobalConstants {
     public static final Color PRIMARY_COLOR = new Color(235, 235, 235);
     public static final Color SECONDARY_COLOR = new Color(0, 51, 102);
     public static final Color BASIC_COLOR = new Color(51, 51, 51);
+    public static final Color YELLOW_COLOR = new Color(248, 186, 28);
     public static final Color LIGHT_BLUE_COLOR = new Color(173, 216, 230);
     public static final Color BUTTON_BG_COLOR = SECONDARY_COLOR;
     public static final Color LINK_COLOR = new Color(51, 153, 255);
@@ -37,4 +38,5 @@ public class GlobalConstants {
     // Resources config
     public static final String LOGIN_IMAGE_PATH = "../resources/images/login_user_avatar_person_users_icon.png";
     public static final String BACK_ICON_PATH = "../resources/images/arrow-big-left.png";
+    public static final String WELCOME_IMAGE_PATH = "../resources/images/welcome-page.png";
 }
