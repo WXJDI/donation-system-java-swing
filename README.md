@@ -64,7 +64,7 @@ cd donation-system-java-swing
 ### Step 2: Set Up the Database
 
 1. Create a MySQL database named `donation_db`.
-2. Run the SQL schema provided in the `database/schema.sql` file to set up the tables.
+2. Run the SQL schema provided in the `resources/sql/schema.sql` file to set up the tables.
 3. Update the `.env` file with your database connection details:
 
 ```
