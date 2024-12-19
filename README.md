@@ -107,6 +107,15 @@ Since the application uses a custom structure and is not Maven-based, follow the
    - Associations: View available donations and collect them.
 3. **Real-time Updates**: Changes made by donors or associations are reflected immediately in the database.
 
+## Diagrams
+
+### Class Diagram
+![Alt text](diagrams/classDiagram.avif)
+
+### Use Case Diagram
+![Alt text](diagrams/useCaseDiagram.avif)
+
+
 ## Screenshots
 ![Alt text](screenshots/welcome-page.avif)
 ![Alt text](screenshots/login-page.avif)
