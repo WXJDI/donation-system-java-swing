@@ -50,6 +50,9 @@ public class DonorDAO {
     public Donor getDonorByUsername(String username) {
         userDAO = new dao.UserDAO();
         User user = userDAO.getUserByUsername(username);
+        if (user == null) {
+            return null;
+        }
         Donor donor = null;
         String sqlQuery = "SELECT * FROM Donor WHERE user_id = ?";
         Connection conn = DBConnection.getConnection();

@@ -73,11 +73,28 @@ public class LoginPanel extends JPanel {
         loginButton.setFocusPainted(false);
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginButton.addActionListener(actionEvent -> {
+            StringBuilder errorMessages = new StringBuilder();
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
+            if (username.isEmpty()) {
+               errorMessages.append("- Username is empty.\n");
+            }
+
+            if (password.isEmpty()) {
+                errorMessages.append("- Password is empty.\n");
+            }
 
             UserService userService = new UserService();
+            boolean userTypeIsInvalid = userService.loginUser(username, password).equals("invalid");
+            if (userTypeIsInvalid) {
+                errorMessages.append("- User does not exist.\n");
+            }
             String userType = String.valueOf(userService.loginUser(username, password));
+
+            if (errorMessages.length() > 0) {
+                JOptionPane.showMessageDialog(this, errorMessages.toString(), "Validations errors", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (userType.equals("donor")) {
                 DonorService donorService = new DonorService();
