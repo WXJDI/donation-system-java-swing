@@ -201,7 +201,7 @@ public class DonationPanel extends JPanel {
     }
 
     public void openAddDonationPopup() {
-        DonationForm donationForm = new DonationForm(currentDonor, null);
+        DonationForm donationForm = new DonationForm(currentDonor, null, this);
 
         DonationDialog dialog = new DonationDialog(
                 this,
@@ -210,12 +210,11 @@ public class DonationPanel extends JPanel {
                 "Add Donation",
                 () -> {
                     Donation donation = donationForm.getDonation(false);
-                    if (donation != null) {
-                        JOptionPane.showMessageDialog(this, "Donation added successfully.");
-                        loadDonations();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to add donation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    if (donation == null) {
+                        return;
                     }
+                    JOptionPane.showMessageDialog(this, "Donation added successfully.");
+                    loadDonations();
                 }
         );
         dialog.setVisible(true);
@@ -224,7 +223,7 @@ public class DonationPanel extends JPanel {
     public void openEditDonationPopup(int donationId) {
         Donation existingDonation = donationService.getDonationById(currentDonor, donationId);
         if (existingDonation != null) {
-            DonationForm donationForm = new DonationForm(currentDonor, existingDonation);
+            DonationForm donationForm = new DonationForm(currentDonor, existingDonation, this);
 
             DonationDialog dialog = new DonationDialog(
                     this,
@@ -233,12 +232,11 @@ public class DonationPanel extends JPanel {
                     "Save Changes",
                     () -> {
                         Donation updatedDonation = donationForm.getDonation(true);
-                        if (updatedDonation != null) {
-                            JOptionPane.showMessageDialog(this, "Donation updated successfully.");
-                            loadDonations();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Failed to update donation.", "Error", JOptionPane.ERROR_MESSAGE);
+                        if (updatedDonation == null) {
+                            return;
                         }
+                        JOptionPane.showMessageDialog(this, "Donation updated successfully.");
+                        loadDonations();
                     }
             );
 

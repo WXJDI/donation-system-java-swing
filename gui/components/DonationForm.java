@@ -1,6 +1,7 @@
 package gui.components;
 
 import app.GlobalConstants;
+import gui.DonationPanel;
 import models.Donation;
 import models.Donor;
 import services.DonationService;
@@ -15,9 +16,11 @@ public class DonationForm extends JPanel {
     private Donation donation;
     private DonationService donationService;
     private Donor donor;
+    private DonationPanel donationPanel;
 
-    public DonationForm(Donor donor, Donation existingDonation) {
+    public DonationForm(Donor donor, Donation existingDonation, DonationPanel donationPanel) {
         this.donor = donor;
+        this.donationPanel = donationPanel;
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -99,6 +102,21 @@ public class DonationForm extends JPanel {
 
     public Donation getDonation(boolean updating) {
         donationService = new DonationService();
+        StringBuilder errorMessages = new StringBuilder();
+
+        if (typeField.getText().isEmpty()) {
+            errorMessages.append("- Type can't be empty.\n");
+        }
+
+        if (descriptionArea.getText().isEmpty()) {
+            errorMessages.append("- Description can't be empty.\n");
+        }
+
+        if (errorMessages.length() > 0) {
+            JOptionPane.showMessageDialog(donationPanel, errorMessages.toString(), "Validation errors", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
         if (updating) {
             donationService.editDonation(donation.getId(), typeField.getText(), descriptionArea.getText(), (int) quantitySpinner.getValue(), donor);
         } else {
