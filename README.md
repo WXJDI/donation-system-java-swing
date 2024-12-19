@@ -20,85 +20,64 @@ The Donation Management System is a Java Swing application designed to facilitat
 2. **MySQL Database** setup.
 3. **IntelliJ IDEA** for running the project.
 4. **MySQL Connector/J** jar file version `9.1.0` added to the `lib` directory.
+5. **Git installed on your machine.**
 
-## Setting up the Application
+## Installation
 
-### 1. Database Setup
-Execute the following SQL schema to create the required tables:
+### Step 1: Clone the Repository
 
-```sql
-CREATE TABLE User (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE
-);
+Ensure Git is installed on your system. If not, install it from [Git Downloads](https://git-scm.com/downloads).
 
-CREATE TABLE Donor (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    user_id INT NOT NULL,
-    CONSTRAINT fk_donor_user FOREIGN KEY (user_id) REFERENCES User(id)
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
+Run the following command to clone the repository:
 
-CREATE TABLE Association (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    location VARCHAR(255) NOT NULL,
-    user_id INT NOT NULL,
-    CONSTRAINT fk_association_user FOREIGN KEY (user_id) REFERENCES User(id)
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE Donation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
-    description VARCHAR(255),
-    quantity INT NOT NULL,
-    isAvailable BOOLEAN DEFAULT TRUE,
-    donor_id INT NOT NULL,
-    CONSTRAINT fk_donation_donor FOREIGN KEY (donor_id) REFERENCES Donor(id)
-    ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE DonationCollection (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    donation_id INT NOT NULL,
-    association_id INT NOT NULL,
-    quantity INT NOT NULL,
-    dateDonationCollected DATE NOT NULL,
-    CONSTRAINT fk_donation FOREIGN KEY (donation_id) REFERENCES Donation(id)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_association FOREIGN KEY (association_id) REFERENCES Association(id)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT chk_quantity_positive CHECK (quantity >= 0)
-);
+```bash
+git clone https://github.com/AyKrimino/donation-system-java-swing.git
 ```
 
-### 2. `.env` Configuration
-Create a `.env` file in the root directory with a content like that:
+Navigate to the project directory:
 
-```
-DB_URL=jdbc:mysql://localhost:3306/your_db_name
-DB_USER=your_db_username
-DB_PASSWORD=your_db_password
+```bash
+cd donation-system-java-swing
 ```
 
-### 3. Adding MySQL Connector
-Download the [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) version `9.1.0`.
-Place the jar file (`mysql-connector-j-9.1.0.jar`) in the `lib` directory (relative to the project structure).
+### Step 2: Set Up the Database
 
-## Running the Application
-Since the application uses a custom structure and is not Maven-based, follow these steps:
+1. Create a MySQL database named `donation_db`.
+2. Run the SQL schema provided in the `database/schema.sql` file to set up the tables.
+3. Update the `.env` file with your database connection details:
+
+```
+DB_URL=jdbc:mysql://localhost:3306/YOUR_DATABASE_NAME
+DB_USER=YOUR_DATABASE_USERNAME
+DB_PASSWORD=YOUR_DATABASE_PASSWORD
+```
+
+### Step 3: Run the Application
+
+#### Option 1: Run Directly Using IntelliJ IDEA
 
 1. Open the project in IntelliJ IDEA.
-2. Configure the Run/Debug configuration with the following command:
-   ```
-   -cp ".:../lib/mysql-connector-j-9.1.0.jar"
-   ```
-3. Run the application using IntelliJ IDEA.
+2. Configure the classpath to include the `mysql-connector-j-9.1.0.jar` file located in the `lib/` directory.
+3. Run the `Main` class to start the application.
+
+#### Option 2: Run from the Terminal
+
+1. Ensure the `mysql-connector-j-9.1.0.jar` file is in the `lib/` directory.
+2. Compile the application:
+
+```bash
+javac -cp ".:./lib/mysql-connector-j-9.1.0.jar" app/*.java dao/*.java gui/*.java models/*.java services/*.java utils/*.java -d bin/
+```
+
+3. Run the application:
+
+```bash
+java -cp ".:./bin:./lib/mysql-connector-j-9.1.0.jar" app.Main
+```
+
+### Step 4: Add the MySQL Connector to `lib/`
+
+Ensure the `mysql-connector-j-9.1.0.jar` file is available in the `lib/` directory. If not, download it from [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/).
 
 ## Usage
 1. **Login**: Enter your credentials to log in as a donor or association user.
