@@ -102,7 +102,7 @@ Ensure the `mysql-connector-j-9.1.0.jar` file is available in the `lib/` directo
 ![Alt text](screenshots/register-association.avif)
 ![Alt text](screenshots/donations.avif)
 ![Alt text](screenshots/available-donations.avif)
-![Alt text](screenshots/donation-dashboard.avif)
+![Alt text](screenshots/donor-dashboard.avif)
 ![Alt text](screenshots/association-dashboard.avif)
 
 ## Contributions
