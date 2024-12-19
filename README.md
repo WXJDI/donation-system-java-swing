@@ -1,5 +1,26 @@
 # Donation Management System
 
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+  - [Donors](#donors)
+  - [Associations](#associations)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+  - [Step 1: Clone the Repository](#step-1-clone-the-repository)
+  - [Step 2: Set Up the Database](#step-2-set-up-the-database)
+  - [Step 3: Run the Application](#step-3-run-the-application)
+    - [Option 1: Run Directly Using IntelliJ IDEA](#option-1-run-directly-using-intellij-idea)
+    - [Option 2: Run from the Terminal](#option-2-run-from-the-terminal)
+  - [Step 4: Add the MySQL Connector to `lib/`](#step-4-add-the-mysql-connector-to-lib)
+- [Usage](#usage)
+- [Diagrams](#diagrams)
+  - [Class Diagram](#class-diagram)
+  - [Use Case Diagram](#use-case-diagram)
+- [Screenshots](#screenshots)
+- [Contributions](#contributions)
+- [License](#license)
+
 ## Overview
 The Donation Management System is a Java Swing application designed to facilitate the management of donations between **donors** and **associations**. This application provides an intuitive graphical user interface for:
 
@@ -89,21 +110,36 @@ Ensure the `mysql-connector-j-9.1.0.jar` file is available in the `lib/` directo
 ## Diagrams
 
 ### Class Diagram
-![Alt text](diagrams/classDiagram.avif)
+![Class Diagram](diagrams/classDiagram.avif)
 
 ### Use Case Diagram
-![Alt text](diagrams/useCaseDiagram.avif)
-
+![Use Case Diagram](diagrams/useCaseDiagram.avif)
 
 ## Screenshots
-![Alt text](screenshots/welcome-page.avif)
-![Alt text](screenshots/login-page.avif)
-![Alt text](screenshots/register-donor.avif)
-![Alt text](screenshots/register-association.avif)
-![Alt text](screenshots/donations.avif)
-![Alt text](screenshots/available-donations.avif)
-![Alt text](screenshots/donor-dashboard.avif)
-![Alt text](screenshots/association-dashboard.avif)
+
+- **Welcome Page** <br>
+  ![Welcome Page](screenshots/welcome-page.avif)
+
+- **Login Page** <br>
+  ![Login Page](screenshots/login-page.avif)
+
+- **Register Donor Page** <br>
+  ![Register Donor Page](screenshots/register-donor.avif)
+
+- **Register Association Page** <br>
+  ![Register Association Page](screenshots/register-association.avif)
+
+- **Donations Page** <br>
+  ![Donations Page](screenshots/donations.avif)
+
+- **Available Donations Page** <br>
+  ![Available Donations Page](screenshots/available-donations.avif)
+
+- **Donor Dashboard** <br>
+  ![Donor Dashboard](screenshots/donor-dashboard.avif)
+
+- **Association Dashboard** <br>
+  ![Association Dashboard](screenshots/association-dashboard.avif)
 
 ## Contributions
 Contributions are welcome! Feel free to fork this repository and submit pull requests with improvements or fixes.
