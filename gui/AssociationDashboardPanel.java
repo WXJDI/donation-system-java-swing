@@ -1,0 +1,147 @@
+package gui;
+
+import app.GlobalConstants;
+import models.DonationCollection;
+import services.DonationCollectionService;
+import utils.ResourceUtils;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+public class AssociationDashboardPanel extends JPanel {
+    private JTable collectedDonationsTable;
+    private DefaultTableModel tableModel;
+    private DonationCollectionService donationCollectionService;
+
+    public AssociationDashboardPanel(int associationId, JPanel mainPanel, CardLayout cardLayout) {
+        donationCollectionService = new DonationCollectionService();
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel titleLabel = new JLabel("Collected Donations", JLabel.CENTER);
+        titleLabel.setFont(GlobalConstants.TITLE_FONT);
+        titleLabel.setForeground(GlobalConstants.SECONDARY_COLOR);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(titleLabel, gbc);
+
+        JLabel backIconLabel = ResourceUtils.loadImage(GlobalConstants.BACK_ICON_PATH);
+        backIconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        backIconLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "ASSOCIATION_PANEL");
+            }
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(backIconLabel, gbc);
+
+        tableModel = new DefaultTableModel(new Object[]{"Type", "Description", "Quantity", "Donor", "Date"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        collectedDonationsTable = new JTable(tableModel) {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+                Color alternateColor = GlobalConstants.TABLE_ALTERNATE_BG;
+                Color whiteColor = Color.WHITE;
+                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                    Color bg = (row % 2 == 0 ? whiteColor : alternateColor);
+                    returnComp.setBackground(bg);
+                }
+                return returnComp;
+            }
+        };
+
+        customizeTable();
+
+        JScrollPane scrollPane = new JScrollPane(collectedDonationsTable);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(scrollPane, gbc);
+
+        loadCollectedDonations(associationId);
+    }
+
+    public void loadCollectedDonations(int associationId) {
+        ArrayList<DonationCollection> donationCollections = donationCollectionService.getDonationsCollectedByAssociation(associationId);
+        tableModel.setRowCount(0);
+
+        for (DonationCollection donationCollection : donationCollections) {
+            tableModel.addRow(new Object[]{
+                    donationCollection.getType(),
+                    donationCollection.getDescription(),
+                    donationCollection.getQuantity(),
+                    donationCollection.getAssociationName(),
+                    donationCollection.getDateDonationCollected()
+            });
+        }
+    }
+
+    private void customizeTable() {
+        collectedDonationsTable.setRowHeight(30);
+
+        collectedDonationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        collectedDonationsTable.getTableHeader().setFont(GlobalConstants.TABLE_COLUMN_NAME_FONT);
+        collectedDonationsTable.setFont(GlobalConstants.LABEL_FONT);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < collectedDonationsTable.getColumnCount(); i++) {
+            collectedDonationsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        int[] columnWidths = {70, 300, 80, 100, 100};
+        for (int i = 0; i < columnWidths.length; i++) {
+            TableColumn column = collectedDonationsTable.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
+
+        collectedDonationsTable.getTableHeader().setReorderingAllowed(false);
+        collectedDonationsTable.getTableHeader().setResizingAllowed(false);
+
+        collectedDonationsTable.setGridColor(GlobalConstants.TABLE_GRID_COLOR);
+        collectedDonationsTable.setSelectionBackground(GlobalConstants.TABLE_SELECTION_BG);
+        collectedDonationsTable.setSelectionForeground(GlobalConstants.TABLE_SELECTION_FG);
+
+        collectedDonationsTable.setBackground(GlobalConstants.TABLE_BG);
+        collectedDonationsTable.getTableHeader().setBackground(GlobalConstants.TABLE_HEADER_BG);
+        collectedDonationsTable.getTableHeader().setForeground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color startColor = GlobalConstants.LIGHT_BLUE_COLOR;
+        Color endColor = GlobalConstants.SECONDARY_COLOR;
+        int width = getWidth();
+        int height = getHeight();
+
+        GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, width, height);
+    }
+}
